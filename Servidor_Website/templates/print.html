@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sistema de seguridad Caja Fuerte - Logs</title>>
+	<link rel="stylesheet" type="text/css" media="screen" href="../static/main.css"/>
+</head>
+<body>
+	<h4>Sistema de seguridad caja fuerte - Grupo 2</h4>
+	<h5>Logs del sistema</h5>
+	<ul>
+		{% for item in log %}
+			{{ item }}
+		{% endfor %}
+
+	</ul>
+</body>

@@ -3,67 +3,79 @@ import RPi.GPIO as GPIO
 from datetime import datetime
 
 flag = 1
+accion = ""
 
 def button_handler(pin):
-	time.sleep(1)                    
-	status = GPIO.input(pin)         
-	print("state", status)           
-	now = datetime.now()                  
+    if flag == 1:
+        time.sleep(1)
+	
+        status = GPIO.input(pin)         
+	
+        accion = "Caja de seguridad ABIERTA"
+
+        now = datetime.now()                  
 	timestamp = now.strftime("%d/%m/%Y %H:%M:%S")   
-	msg = "%s | %s\n\r" % (timestamp, status)      
+	msg = "%s | %s\n\r" % (timestamp, accion)      
 	log.write(msg)                                
 
-def sistema(pin):
-	if (flag == 0):
-		desactivar_sistema(12)
-	else:
-		activar_sistema(12)
-
-def desactivar_sistema (pin):
-	flag = 1
-	GPIO.remove_event_detect(pin, GPIO.BOTH)     	
+def desactivar_sistema(pin):
+	GPIO.remove_event_detect(pin_sensor)     	
 	time.sleep(1)                    
-	status = GPIO.input(pin)         #Ver esto si le ponemos el estado o directo lo sacamos y ponemos un print en el log de que se 
-	print("state", status)           #desactivo y mostramos el timestamp
-	now = datetime.now()                  
+        accion = "Se DESACTIVO el sistema de seguridad"
+        now = datetime.now()                  
 	timestamp = now.strftime("%d/%m/%Y %H:%M:%S")   
-	msg = "%s | %s\n\r" % (timestamp, status)      
+	msg = "%s | %s\n\r" % (timestamp, accion)      
 	log.write(msg)  
 	print("Se desactivo el sistema de seguridad")
 	return
 
-def activar_sistema (pin):
-	flag = 0
-	GPIO.add_event_detect(pin, GPIO.BOTH)
-	GPIO.add_event_callback(pin, button_handler)     	
+def activar_sistema(pin):
+	GPIO.add_event_detect(pin_sensor, GPIO.BOTH)
+	GPIO.add_event_callback(pin_sensor, button_handler)     	
 	time.sleep(1)                    
-	status = GPIO.input(pin)         #Ver esto si le ponemos el estado o directo lo sacamos y ponemos un print en el log de que se 
-	print("state", status)           #activo y mostramos el timestamp
+        accion = "Se ACTIVO el sistema de seguridad"
 	now = datetime.now()                  
 	timestamp = now.strftime("%d/%m/%Y %H:%M:%S")   
-	msg = "%s | %s\n\r" % (timestamp, status)      
+	msg = "%s | %s\n\r" % (timestamp, accion)      
 	log.write(msg)  
 	print("Se activo el sistema de seguridad")
 	return
 
+def activar():
+    flag = 1
+    print("Activado celular")
+    accion = "Se ACTIVO el sistema de seguridad desde el celular"
+    now = datetime.now()                  
+    timestamp = now.strftime("%d/%m/%Y %H:%M:%S")   
+    msg = "%s | %s\n\r" % (timestamp, accion)      
+    log.write(msg)  
+
+def desactivar():
+    flag = 0
+    print("Desacivado celular")
+    accion = "Se DESACTIVO el sistema de seguridad desde el celular"
+    now = datetime.now()                  
+    timestamp = now.strftime("%d/%m/%Y %H:%M:%S")   
+    msg = "%s | %s\n\r" % (timestamp, accion)      
+    log.write(msg)  
 
 GPIO.setmode(GPIO.BOARD)            
 GPIO.setup(12, GPIO.IN)
-GPIO.setmode(GPIO.BOARD)      #Este boton activa y desactiva localmente      
 GPIO.setup(11, GPIO.IN)               
-# GPIO.add_event_detect(12, GPIO.FALLING)     
-# GPIO.add_event_callback(12, button_handler)
+GPIO.setup(13, GPIO.IN)
 
-GPIO.add_event_detect(11, GPIO.BOTH)     
-GPIO.add_event_callback(11,sistema)
+GPIO.add_event_detect(11, GPIO.FALLING)     
+GPIO.add_event_callback(11, activar_sistema)
+
+GPIO.add_event_detect(13, GPIO.FALLING)     
+GPIO.add_event_callback(13, desactivar_sistema)
 
 log = open("security_log.log", "a")                   
 
+pin_sensor = 12
+
 while True:    
-	print("One")           
-	time.sleep(1)        
-	print("Two")         
-	time.sleep(1)       
+    time.sleep(1)    
 
 GPIO.cleanup() 
 
