@@ -9,17 +9,19 @@
 	<h5>Sistema de seguridad caja fuerte - Grupo 2</h5>
 	<ul>
 		{% for item in my_list %}
-			<li>{{ item }}</li>
+			<li>{{ item }}</li>>
 		{% endfor %}	
 	</ul>
-	
-	<div>
-            <form action="" method="post">
-               <input type="button" name="activar" value="Ejecutar">
-            </form>
 
-            <?php
-                echo shell_exec('python prueba.py')
-            ?>
-        </div>
+	<form action="/external/" method="POST">
+		{% crsf_token %}
+		Input Text:
+		<input type="text" name="param" required><br><br>
+		{{data_external}}<br><br>
+		{{data1}}
+		<br><br>
+		<input type="submit" value="Ejecutar Script Python"
+
+
+	</form>
 </body>
