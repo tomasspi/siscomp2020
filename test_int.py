@@ -84,7 +84,8 @@ log = open("security_log.log", "a")
 pin_sensor = 12
 
 while True:
-	time.sleep(1)
+	print("sesperando")
+    time.sleep(1)
 
 GPIO.cleanup()
 

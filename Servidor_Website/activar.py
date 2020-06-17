@@ -1,7 +1,7 @@
 import time
 import os
 
-output= "El tiempo de ahora es"
+output= "Se activo el proceso..."
 print(output)
 
-os.system("python /home/facubos/Documentos/siscomp2020/prueba.py hola")
+os.system("kill -CONT 23176") # Activa proceso

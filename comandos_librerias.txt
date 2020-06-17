@@ -35,4 +35,7 @@ pip3 install django
 cd /buttonpython/
 python3 manage.py runserver 127.0.0.1:8002
 
+o
+
+python manage.py runserver 127.0.0.1:8002
 Si no tira error con ingresar a esa ip:puerto deberia abrir una pag

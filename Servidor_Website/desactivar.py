@@ -1,6 +1,7 @@
 import time
+import os
 
-output= "El tiempo de ahora es"
+output= "Se desactivo el proceso..."
 print(output)
 
-#os.system("gedit")
+os.system("kill -STOP 23176") # Desactiva proceso
