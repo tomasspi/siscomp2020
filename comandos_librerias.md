@@ -14,7 +14,7 @@ Apretar `[ENTER]` para que se añada el repositorio
 ```shell
 sudo apt install python3.8
 ```
-###Correr el siguiente comando:
+**Correr el siguiente comando:**
 
 ```shell
 pip3 --version
