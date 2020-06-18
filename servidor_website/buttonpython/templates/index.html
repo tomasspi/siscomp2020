@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sistema de seguridad Caja Fuerte</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+
+</head>
+<body>
+	
+	<h1>Trabajo Final - Sistemas de computación</h1>
+	<h2>Sistema de seguridad caja fuerte - Grupo 2</h2>
+
+	<div class="button">
+		<a class="button1" onclick="location.href='{% url 'activar' %}'">Activar</a>
+		<a class="button1" onclick="location.href='{% url 'desactivar' %}'">Desactivar</a>
+		<a class="button1" onclick="location.href='{% url 'ver_log' %}'">Ver log</a>
+	</div>
+	<br>
+	{% block pepe %}
+	<div class="box">
+	{% if data %}
+	
+	{{data}}
+
+	{% endif %}
+		</div>
+	{% endblock %}
+	{% block papa %}
+	<div class="box" >
+		{% if contenido %}
+		
+		{{contenido}}
+	
+		{% endif %}
+		</div>
+	{% endblock %}
+</body>
